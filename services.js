@@ -119,8 +119,13 @@ climateServices.service('energyOptionsWithComposition', ['energyComposition', 'e
     }, this);
 
     this.addNormalizedMix = _.bind(function(option) {
+
       // first start the normalized mix with just the original mix
       option.normalizedMix = option.mix ? _.clone(option.mix) : {};
+
+      // then get the offset of the mix
+      offset = option.normalizedMix.offset || 0;
+      delete option.normalizedMix.offset;
 
       // then replace all of the unkown sources with the `normalMix`
       var unknownPercent = 1 - sum(_.values(option.normalizedMix));
@@ -132,6 +137,9 @@ climateServices.service('energyOptionsWithComposition', ['energyComposition', 'e
         addValueFromTo(multiplyValuesBy(this.renewableMix, renewablePercent), option.normalizedMix);
         delete option.normalizedMix.renewable;
       }
+
+      // finally, if offset, remove that % of the energy
+      this.normalizedMix = multiplyValuesBy(this.normalizedMix, offset);
 
     }, this);
 
