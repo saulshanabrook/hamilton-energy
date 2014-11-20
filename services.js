@@ -97,11 +97,13 @@ climateServices.factory('energyMixRenewable', ['energyMixNY',
     return normalizeValues(_.pick(energyMixNY, 'solar', 'hydro', 'wind', 'solar', 'biomass'));
 }]);
 
-climateServices.service('energyOptionsWithComposition', ['energyComposition', 'energyOptions', 'energyMixNY', 'energyMixRenewable',
-  function energyOptionsWithCompositionService(energyComposition, energyOptions, energyMixNY, energyMixRenewable) {
+climateServices.service('energyOptionsWithComposition', ['energyComposition', 'energyOptions', 'energyMixNY', 'energyMixRenewable', 'emmissions',
+  function energyOptionsWithCompositionService(energyComposition, energyOptions, energyMixNY, energyMixRenewable, emmissions) {
     this.normalMix = energyMixNY;
     this.renewableMix = energyMixRenewable;
     this.compositions = energyComposition;
+    this.emmissions = emmissions;
+
     this.setComposition = function(composition, option) {
       option.mix = composition.mix;
     };
@@ -132,11 +134,20 @@ climateServices.service('energyOptionsWithComposition', ['energyComposition', 'e
       }
 
     }, this);
+
+    this.addEmmissions = _.bind(function(option) {
+      option.emmissions = 0;
+      for (var source in option.normalizedMix) {
+         option.emmissions += this.emmissions[source] * option.normalizedMix[source];
+      }
+
+    }, this);
+
     this.getOptions = energyOptions.then(_.bind(function(options) {
       this.options = options;
       _.each(this.compositions, this.setEnergyComposition);
       _.each(this.options, this.addNormalizedMix);
-
+      _.each(this.options, this.addEmmissions);
       return this.options;
     }, this));
 

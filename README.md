@@ -17,8 +17,8 @@ Then we can say “If you don’t choose the more expensive rate, you value live
 - [x] Manipulate the recorded mixes to fill in the average mix for those who did not specify and fill in a renewable mix for those marked `renewable`
 	- [x] Find average mix of electricy produced in New York State, using U.S. Energy Information Agnency Data, through the [Electricity Data Browser](http://www.eia.gov/electricity/data/browser/#/topic/0?agg=2,0,1&fuel=vtvo&geo=0002&sec=00g&freq=A&start=2001&end=2013&ctype=columnchart&ltype=sourcekey&rtype=s&pin=&rse=1&maptype=0). I used 2013 data. ![table of data obtained](https://www.dropbox.com/s/8xjkm34cm949csa/Screenshot%202014-11-19%2022.40.15.png?dl=1)
 	- [x] Set `renewable` sources to the NY average of the [qualifying technologies](http://en.wikipedia.org/wiki/Renewable_Energy_Certificate_(United_States)#Qualifying_technologies).
-- [ ] Input energy carbon costs from [the most recent IPCC report (page 10)](http://report.mitigation2014.org/drafts/final-draft-postplenary/ipcc_wg3_ar5_final-draft_postplenary_annex-iii.pdf).
-	- [ ] calculate average carbon costs for each provider
+- [x] Input energy carbon costs from [the most recent IPCC report (page 10)](http://report.mitigation2014.org/drafts/final-draft-postplenary/ipcc_wg3_ar5_final-draft_postplenary_annex-iii.pdf). ![report image](https://www.dropbox.com/s/ft6g286iclqepwu/Screenshot%202014-11-19%2023.13.36.png?dl=1)
+	- [x] calculate average carbon costs for each provider
 - [ ] Plot cost vs. carbon costs of each provider
 	- [ ] have hover over each dot reveal all details of provider
 	- [ ] also show the “You can pay x more per month to reduce your carbon footprint by y” underneath

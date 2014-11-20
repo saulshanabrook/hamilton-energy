@@ -12,6 +12,17 @@ climateConstants.constant('energyMixNY', normalizeValues({
   biomass: 1774
 }));
 
+climateConstants.constant('emmissions', {
+  coal: 820,
+  gas: 490,
+  biomass: 740,
+  hydro: 24,
+  solar: 48,
+  wind: 11,
+  nuclear: 12,
+  oil: 490 // just guessing on this one, shouldnt matter too much, cause low %
+});
+
 climateConstants.constant('energyComposition', [{
   'selector': {
     'provider': 'Agway Energy Services, Inc.'
