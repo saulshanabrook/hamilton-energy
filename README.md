@@ -29,7 +29,7 @@ Then we can say “If you don’t choose the more expensive rate, you value live
 	- calculate the number of people saved by taking whatever fraction of the total emissions you don’t create and multiplying that by 2.5 million.
 - [ ] Show people how much they are valuing those lives, based on which choice they are hovering over.
 
-	
+
 ## Inaccuracies
 I can not make any promises for how accurate any of these numbers are. They are the best estimates I can find, but the way I combined them was “novel”. By that I mean, no one else, that I know of, has made this sort of prediction, which probably means that the data is not sufficient to make this sort of claim.
 
@@ -47,9 +47,9 @@ The WHO numbers detailing how many people are expected to die as result of clima
 
 Then there is the issue of extrapolating that number of deaths to be dependent on tons of carbon dioxide releasing. In their study they compared SRESA1b to climate levels from pre 1990. They used the Special Report on Emissions Scenarios instead of the newer Representative Concentration Pathways, because they said they did not have time to use the newer models when the report came out, so this is the first area of increased uncertainty. They are using outdated models.
 
-Also, I assumed that number of added deaths was linearly related to the increase in temperature from 1990s levels to the levels at 2030. So, for example, if the temperature goes up by half the amount predicted, then the deaths will also be halved. This is fundamentally inaccurate, but I couldn’t figure out a better way to do it, based on the data provided in their report. They were only comparing two different scenarios, not predicting how the number of deaths relates exactly to carbon output or temperature rise, so I had to extrapolate. 
+Also, I assumed that number of added deaths was linearly related to the increase in temperature from 1990s levels to the levels at 2030. So, for example, if the temperature goes up by half the amount predicted, then the deaths will also be halved. This is fundamentally inaccurate, but I couldn’t figure out a better way to do it, based on the data provided in their report. They were only comparing two different scenarios, not predicting how the number of deaths relates exactly to carbon output or temperature rise, so I had to extrapolate.
 
-Next I assumed that the total mass of CO<sub>2eq released between 1990 and 2030 would be linearly related to the temperature difference between them. So if no carbon dioxide was released from 1990 to 2030 then temperatures would stay exactly the same and extra deaths would be zero. Again, this extrapolation is not grounded in any model of carbon dioxide and temperature, I just chose a linear relationship because it easiest to work with and at least makes sense conceptual and in a very general way (more carbon dioxide released will result in a higher temperature at the end).
+Next I assumed that the total mass of CO<sub>2</sub>eq released between 1990 and 2030 would be linearly related to the temperature difference between them. So if no carbon dioxide was released from 1990 to 2030 then temperatures would stay exactly the same and extra deaths would be zero. Again, this extrapolation is not grounded in any model of carbon dioxide and temperature, I just chose a linear relationship because it easiest to work with and at least makes sense conceptual and in a very general way (more carbon dioxide released will result in a higher temperature at the end).
 
 ### Lives Saved per Dollar
 I couldn’t find any estimates of the total long term number of deaths from climate change, only the number per year between 2030 and 2050. This means that really the price you are paying is only valid within that timeframe, and in fact a whole lot more people will most likely die, relatively speaking, than just within those years.
