@@ -15,8 +15,8 @@ Then we can say “If you don’t choose the more expensive rate, you value live
 	- I only marked down those who did, the majority did not.
 	- Some only said they used “renewable” energy without specifying what type. Others said they bought [Renewable Energy Certificates](http://en.wikipedia.org/wiki/Renewable_Energy_Certificate_(United_States)) instead of actually producing renewable energy. I marked all these as `renewable`.
 - [x] Manipulate the recorded mixes to fill in the average mix for those who did not specify and fill in a renewable mix for those marked `renewable`
-	- [ ] Find average mix of non renewable energy produced in New York state
-	- [ ] Set `renewable` sources to the worst of the [qualifying technologies](http://en.wikipedia.org/wiki/Renewable_Energy_Certificate_(United_States)#Qualifying_technologies). I will calculate those based on the worst, because I really can’t tell where in fact they came from and I want to hurt those in the rankings who choose not to disclose specifically what energy source they are making.
+	- [x] Find average mix of electricy produced in New York State, using U.S. Energy Information Agnency Data, through the [Electricity Data Browser](http://www.eia.gov/electricity/data/browser/#/topic/0?agg=2,0,1&fuel=vtvo&geo=0002&sec=00g&freq=A&start=2001&end=2013&ctype=columnchart&ltype=sourcekey&rtype=s&pin=&rse=1&maptype=0). I used 2013 data. ![table of data obtained](https://www.dropbox.com/s/8xjkm34cm949csa/Screenshot%202014-11-19%2022.40.15.png?dl=1)
+	- [x] Set `renewable` sources to the NY average of the [qualifying technologies](http://en.wikipedia.org/wiki/Renewable_Energy_Certificate_(United_States)#Qualifying_technologies).
 - [ ] Input energy carbon costs from [the most recent IPCC report (page 10)](http://report.mitigation2014.org/drafts/final-draft-postplenary/ipcc_wg3_ar5_final-draft_postplenary_annex-iii.pdf).
 	- [ ] calculate average carbon costs for each provider
 - [ ] Plot cost vs. carbon costs of each provider
@@ -36,7 +36,7 @@ I can not make any promises for how accurate any of these numbers are. They are 
 ### Carbon Output
 I used the IPCC’s lifecycle carbon outputs for each energy, so these do creation and travel costs for each energy, but they are in no way conclusive. It is impossible to fully measure the carbon cost of any action, especially when so many different moving parts are involved.
 
-Also, many energy companies did not list, or only incompletely listed, their energy mix. There were no standards, as far as I could tell, regulating any access to this information by consumers, so I was unable to obtain any more accurate information than that provided on their sites. I could contact each of them privately to ask, but this was outside my available time frame.
+Also, many energy companies did not list, or only incompletely listed, their energy mix. There were no standards, as far as I could tell, regulating any access to this information by consumers, so I was unable to obtain any more accurate information than that provided on their sites. I could contact each of them privately to ask, but this was outside my available time frame. When I estimated the average power production in New York state, when the company did not provide any information, I used "Net generation for independent power producers", which shows the average for the produciton in the state. However, some of the energy you buy from these companies might actually be produced out of state and then sent in, so this mix is not neccarily representatiev. Also, of course, it is only an average for the state so each energy company would, in actuallity, have a different mix of energies than the ones predicted.
 
 Also, my estimations from the IPCC report did not take into account any systemic regional variability within different sources greenhouse gas emissions, if there was any.
 

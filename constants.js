@@ -1,6 +1,17 @@
 var climateConstants = angular.module('climateConstants', []);
 
 
+climateConstants.constant('energyMixNY', normalizeValues({
+  coal: 4509,
+  oil: 389,
+  gas: 39467,
+  nuclear: 44756,
+  hydro: 4655,
+  wind: 3538,
+  solar: 53,
+  biomass: 1774
+}));
+
 climateConstants.constant('energyComposition', [{
   'selector': {
     'provider': 'Agway Energy Services, Inc.'
@@ -120,3 +131,4 @@ climateConstants.constant('energyComposition', [{
     'renewable': 0.5
   }
 }]);
+

@@ -92,14 +92,15 @@ climateServices.factory('energyOptions', ['energyHTTP',
   }
 ]);
 
-climateServices.service('energyOptionsWithComposition', ['energyComposition', 'energyOptions',
-  function energyOptionsWithCompositionService(energyComposition, energyOptions) {
-    this.normalMix = {
-      'coal': 1
-    };
-    this.renewableMix = {
-      'magic': 1
-    };
+climateServices.factory('energyMixRenewable', ['energyMixNY',
+  function(energyMixNY) {
+    return normalizeValues(_.pick(energyMixNY, 'solar', 'hydro', 'wind', 'solar', 'biomass'));
+}]);
+
+climateServices.service('energyOptionsWithComposition', ['energyComposition', 'energyOptions', 'energyMixNY', 'energyMixRenewable',
+  function energyOptionsWithCompositionService(energyComposition, energyOptions, energyMixNY, energyMixRenewable) {
+    this.normalMix = energyMixNY;
+    this.renewableMix = energyMixRenewable;
     this.compositions = energyComposition;
     this.setComposition = function(composition, option) {
       option.mix = composition.mix;
@@ -114,25 +115,6 @@ climateServices.service('energyOptionsWithComposition', ['energyComposition', 'e
       // set the mix for each of those
       _.each(whereApplied, _.partial(this.setComposition, composition));
     }, this);
-
-    function sum(l) {
-      return _.reduce(l, function(memo, num) {
-        return memo + num;
-      }, 0);
-    }
-
-    function multiplyValuesBy(initObject, multiplier) {
-      var newObj = _.clone(initObject);
-      return _.object(_.map(newObj, function(value, key) {
-        return [key, value * multiplier];
-      }));
-    }
-
-    function addValueFromTo(src, dest) {
-      _.each(src, function(value, key) {
-        dest[key] = (dest[key] || 0) + value;
-      });
-    }
 
     this.addNormalizedMix = _.bind(function(option) {
       // first start the normalized mix with just the original mix
@@ -160,3 +142,4 @@ climateServices.service('energyOptionsWithComposition', ['energyComposition', 'e
 
   }
 ]);
+
