@@ -214,7 +214,6 @@ climateServices.constant('energyComposition', [{
 
 climateServices.service('energyOptionsWithComposition', ['energyComposition', 'energyOptions',
   function energyOptionsWithCompositionService(energyComposition, energyOptions) {
-    this.options;
     this.normalMix = {
       'coal': 1
     };
@@ -225,41 +224,51 @@ climateServices.service('energyOptionsWithComposition', ['energyComposition', 'e
     this.setComposition = function(composition, option) {
       option.mix = composition.mix;
     };
+
     this.setEnergyComposition = _.bind(function(composition) {
+      // find what energy providers that this rule composition applies to
       var whereApplied = _.where(this.options, composition.selector);
       if (whereApplied.length === 0) {
         console.log("this compsition didnt find any options to be used with", composition);
       }
+      // set the mix for each of those
       _.each(whereApplied, _.partial(this.setComposition, composition));
     }, this);
+
+    function sum(l) {
+      return _.reduce(l, function(memo, num) {
+        return memo + num;
+      }, 0);
+    }
+
+    function multiplyValuesBy(initObject, multiplier) {
+      var newObj = _.clone(initObject);
+      return _.object(_.map(newObj, function(value, key) {
+        return [key, value * multiplier];
+      }));
+    }
+
+    function addValueFromTo(src, dest) {
+      _.each(src, function(value, key) {
+        dest[key] = (dest[key] || 0) + value;
+      });
+    }
+
     this.addNormalizedMix = _.bind(function(option) {
-      // if it is normal energy, use all normal mix
-      if (!_.has(option, "mix")) {
-        option.normalizedMix = this.normalMix;
-      } else { // else use the mix given as a base and gill in
-        option.normalizedMix = this.mix;
-        // first change any leftover to normalMix
-        var sum = function(l) {
-          return _.reduce(l, function(memo, num) {
-            return memo + num;
-          }, 0);
-        };
+      // first start the normalized mix with just the original mix
+      option.normalizedMix = option.mix ? _.clone(option.mix) : {};
 
-        var accountedForPercent = sum(_.values(option.mix));
-        var addedNormalPercent = 1 - accountedForPercent;
+      // then replace all of the unkown sources with the `normalMix`
+      var unknownPercent = 1 - sum(_.values(option.normalizedMix));
+      addValueFromTo(multiplyValuesBy(this.normalMix, unknownPercent), option.normalizedMix);
 
-        for (var energySource in this.normalMix) {
-          option.normalizedMix[energySource] = option.normalizedMix[energySource] || 0;
-          option.normalizedMix[energySource] += this.normalMix[energySource] * addedNormalPercent;
-        }
-        // then change any "renewable" to `renewableMix`
-        var renewablePercent = option.normalizedMix.renewable || 0;
-        for (energySource in this.renewableMix) {
-          option.normalizedMix[energySource] = option.normalizedMix[energySource] || 0;
-          option.normalizedMix[energySource] += this.renewableMix[energySource] * renewablePercent;
-        }
-
+      // then replace the `renewable` energy with `renewableMix`
+      var renewablePercent = option.normalizedMix.renewable;
+      if (renewablePercent !== undefined) {
+        addValueFromTo(multiplyValuesBy(this.renewableMix, renewablePercent), option.normalizedMix);
+        delete option.normalizedMix.renewable;
       }
+
     }, this);
     this.getOptions = energyOptions.then(_.bind(function(options) {
       this.options = options;
