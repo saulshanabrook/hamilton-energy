@@ -2,7 +2,8 @@ var climateApp = angular.module('climateApp', [
   'climateControllers',
   'climateServices',
   'climateConstants',
-  'highcharts-ng'
+  'highcharts-ng',
+  'datatables'
 ]);
 
 climateApp.run(function() {

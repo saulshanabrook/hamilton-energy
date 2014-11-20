@@ -150,7 +150,5 @@ climateServices.service('energyOptionsWithComposition', ['energyComposition', 'e
       _.each(this.options, this.addEmmissions);
       return this.options;
     }, this));
-
   }
 ]);
-
