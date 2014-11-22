@@ -79,7 +79,7 @@ climateServices.factory('energyOptions', ['energyHTTP',
             break;
           case "tableRow1":
             processRow($(this));
-            break;
+          break;
           case "tableRow0":
             processRow($(this));
             break;

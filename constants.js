@@ -23,6 +23,21 @@ climateConstants.constant('emmissions', {
   oil: 490 // just guessing on this one, shouldnt matter too much, cause low %
 });
 
+
+climateConstants.constant('optionKeys', {
+  'provider': 'Provider Name',
+  'price': 'Price ($/kwh)',
+  'emmissions': 'Emmissions (gCO2eq/kWh)',
+  'green': '"Green"?',
+  'pricingScheme': 'Pricing Scheme',
+  'minTerm': 'Minimum Term',
+  'cancellationFee': 'Cancellation Fee',
+  'comments': 'Comments',
+  'url': 'Link',
+  'mix': 'Disclosed Energy Mix',
+  'normalizedMix': 'Calculated Energy Mix'
+});
+
 climateConstants.constant('energyComposition', [{
   'selector': {
     'provider': 'Agway Energy Services, Inc.'
@@ -30,7 +45,7 @@ climateConstants.constant('energyComposition', [{
   'mix': {
     'wind': 0.4,
     'hydro': 0.3,
-    'lfg': 0.3
+    'gas': 0.3
   }
 }, {
   'selector': {
@@ -142,4 +157,3 @@ climateConstants.constant('energyComposition', [{
     'renewable': 0.5
   }
 }]);
-

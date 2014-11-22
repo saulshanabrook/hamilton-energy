@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html ng-app="climateApp">
+
 <head>
   <title>climate_change_morality</title>
 
@@ -8,17 +9,17 @@
 
   <link rel="stylesheet" href="//cdn.rawgit.com/t4t5/sweetalert/master/lib/sweet-alert.css">
   <link rel="stylesheet" href="//cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
-
 </head>
 
 <body>
   <div ng-controller="EnergyProvidersCtrl">
-      <table datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
-  </div>
+    <highchart id="chart1" config="chartConfig"></highchart>
+<!--     <table datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
+ -->  </div>
 
   <div ng-controller="DeathCtrl">
-    CO2 tons saved: <input ng-model="cTonsSaved" type="number">
-    {{ lessDeathsFromCTonSaved() }}
+    CO2 tons saved:
+    <input ng-model="cTonsSaved" type="number"> {{ lessDeathsFromCTonSaved() }}
   </div>
 
 
@@ -44,4 +45,5 @@
   <script src="services.js"></script>
   <script src="constants.js"></script>
 </body>
+
 </html>

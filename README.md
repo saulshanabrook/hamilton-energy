@@ -29,6 +29,7 @@ Then we can say “If you don’t choose the more expensive rate, you value live
 	- calculate the number of people saved by taking whatever fraction of the total emissions you don’t create and multiplying that by 2.5 million.
 - [ ] Show people how much they are valuing those lives, based on which choice they are hovering over.
 
+http://jsfiddle.net/gh/get/jquery/1.7.2/highslide-software/highcharts.com/tree/master/samples/highcharts/plotoptions/series-point-events-mouseover/
 
 ## Inaccuracies
 I can not make any promises for how accurate any of these numbers are. They are the best estimates I can find, but the way I combined them was “novel”. By that I mean, no one else, that I know of, has made this sort of prediction, which probably means that the data is not sufficient to make this sort of claim.
