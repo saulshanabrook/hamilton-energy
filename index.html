@@ -42,11 +42,14 @@
       </p>
       <p>
         If you switched, and kept them until 2030 you would {{ (priceDifference < 0) ? "lose" : "save" }} {{ priceDifference | abs | currency }}.
-        Based on the difference in carbon outputs, you would of the {{ (lifeDifference > 0) ? "save" : "kill" }} approximently {{ lifeDifference | abs | number : 5 }} more people, than if you stayed with the default.
+        Based on the difference in carbon outputs, you would cause {{ lifeDifference | abs | number : 5 }} more people to  {{ (lifeDifference > 0) ? "live" : "die" }} between 2030 and 2050, than if you stayed with the default.
         <span ng-if="priceDifference < 0 && lifeDifference > 0">
           This means you would be paying be paying {{ (priceDifference / lifeDifference) | abs | currency }} per life saved.
         </span>
     </div>
+  </div>
+  <div ng-controller="InfoCtrl">
+    <div ng-bind-html="readme"></div>
   </div>
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
@@ -62,6 +65,8 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.js"></script>
 
   <script src="//cdn.rawgit.com/gentooboontoo/js-quantities/master/src/quantities.js"></script>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.js"></script>
 
   <script src="utils.js"></script>
   <script src="main.js"></script>

@@ -1,37 +1,13 @@
 # Hamilton Energy
+
 I set about to calculate the tradeoff between cost and human lives, based on what energy provider you choose. Currently it is only relevant for those who live in Hamilton, NY (or more specifically, within the zip code 13346).
 
-## Wait, what?
-If you are a homeowner in Hamilton, NY you have access to many [Energy Service Companies](http://www.askpsc.com/askpsc/page/?PageAction=renderPageById&PageId=7f285010bbcba4320235157257b2dc82). Each of them have different costs and are provided by different companies, with different energy mixes. So once we know the energy mix of a certain provider (10% wind, 20% nuclear, 70% gas), we can estimate the average life cycle gCO<sup>2</sup>eq/kWh for each provider. Then using an average electricity usage per month (with the option to modify it with your own usage), we can figure out the gCO<sup>2</sup>eq per month. Then we can compare that against different companies, to see what the price differential is per gCO<sup>2</sup>eq. We have a scatter plot of each utility, of gCO<sup>2</sup>eq vs. price. Then, when you hover over a price, it says “You can pay x more per month to reduce your carbon footprint by y”.
+## Calculation Process
+First I calculated the energy mix of each utility. I used the mix on their website and filled in with the average energy mix for any missing data. Then using that mix, I figured out the average emmissions for each utility, using the emmisions / kWh data.
 
-Now comes the interesting part. Using estimations of projected deaths resulting from climate change depending on how much the 	temperature rises, combined with other models showing how greenhouse gas emissions will influence temperature changes, we can predict how different greenhouse gas emissions will affect total deaths. Then we can turn that previous figure of how much you would reduce your carbon footprint by to the number of deaths you would prevent.
+Using their emmissions and the inputted monthly usage, I could determine the monthly emmissions for the selected utility and compare that to the incumbent utility. Then I could figure out what the total difference in emmitted carbon would be, from now to 2030.
 
-Then we can say “If you don’t choose the more expensive rate, you value lives at less than z”
-
-## …again, slower this time?
-- [x] Scrape [New York State Public Service Commission](http://www.newyorkpowertochoose.com/) site for different utilities and their costs.
-- [x] Hand compile a list of their energy makeups (available in [`services.js`](services.js:95-213).
-	- For this process I went to the respective sites for each of the companies to see if the specified their energy makeup.
-	- I only marked down those who did, the majority did not.
-	- Some only said they used “renewable” energy without specifying what type. Others said they bought [Renewable Energy Certificates](http://en.wikipedia.org/wiki/Renewable_Energy_Certificate_(United_States)) instead of actually producing renewable energy. I marked all these as `renewable`.
-- [x] Manipulate the recorded mixes to fill in the average mix for those who did not specify and fill in a renewable mix for those marked `renewable`
-	- [x] Find average mix of electricy produced in New York State, using U.S. Energy Information Agnency Data, through the [Electricity Data Browser](http://www.eia.gov/electricity/data/browser/#/topic/0?agg=2,0,1&fuel=vtvo&geo=0002&sec=00g&freq=A&start=2001&end=2013&ctype=columnchart&ltype=sourcekey&rtype=s&pin=&rse=1&maptype=0). I used 2013 data. ![table of data obtained](https://www.dropbox.com/s/8xjkm34cm949csa/Screenshot%202014-11-19%2022.40.15.png?dl=1)
-	- [x] Set `renewable` sources to the NY average of the [qualifying technologies](http://en.wikipedia.org/wiki/Renewable_Energy_Certificate_(United_States)#Qualifying_technologies).
-- [x] Input energy carbon costs from [the most recent IPCC report (page 10)](http://report.mitigation2014.org/drafts/final-draft-postplenary/ipcc_wg3_ar5_final-draft_postplenary_annex-iii.pdf). ![report image](https://www.dropbox.com/s/ft6g286iclqepwu/Screenshot%202014-11-19%2023.13.36.png?dl=1)
-	- [x] calculate average carbon costs for each provider
-- [x] Plot cost vs. carbon costs of each provider
-	- [x] have hover over each dot reveal its name
-		- [x] Add average energy use data. (from [Table CE2.2] (http://www.eia.gov/consumption/residential/data/2009/c&e/fuel-totals/xls/CE2.2%20Northeast%20Site%20Fuel%20Consumption.xlsx) of the [2009 eic RECS data](http://www.eia.gov/consumption/residential/data/2009/index.cfm?view=consumption#fuel-consumption). Used the "Average Site Energy Consumption" of electricity for New York State).
-	- [x] Show details of selected provider below
-	- [x] also show the “You can pay x more per month to reduce your carbon footprint by y” underneath
-- [x] Figure out how many lives are saved for each ton of carbon not released
-	- 250k more people will die each year, between 2030 and 2050, if we continue to track SRES A1b vs “baseline climate”. (from a [WHO report](http://apps.who.int/iris/bitstream/10665/134014/1/9789241507691_eng.pdf?ua=1)).
-	- This means 2.5 mil deaths from 2030-2050.
-	- number of added deaths per year in 2030-2040 is linearly related to the total carbon dioxide emissions from 1990 to 2030, which is 500Gt (from a [older IPCC report, page 9](https://www.ipcc.ch/pdf/special-reports/spm/sres-en.pdf))
-	- calculate the number of people saved by taking whatever fraction of the total emissions you don’t create and multiplying that by 2.5 million.
-- [x] Show people how much they are valuing those lives, based on which choice they are hovering over.
-
-http://jsfiddle.net/gh/get/jquery/1.7.2/highslide-software/highcharts.com/tree/master/samples/highcharts/plotoptions/series-point-events-mouseover/
+Using the total number of deaths caused by climate change, compared to if temperatures had stayed at their 2000s levels, and the total projected carbon emmissions producing that change in temperature, I extrapolated to determine how many deaths a relative change in the carbon output would save.
 
 ## Inaccuracies
 I can not make any promises for how accurate any of these numbers are. They are the best estimates I can find, but the way I combined them was “novel”. By that I mean, no one else, that I know of, has made this sort of prediction, which probably means that the data is not sufficient to make this sort of claim.

@@ -51,7 +51,11 @@ climateControllers.controller('EnergyProvidersCtrl', ['$scope', 'energyOptionsWi
     }
 
     $scope.monthlyUsage = Math.round(8294 / 12, 0);
-    $scope.$watch('monthlyUsage', updateDifferences);
+    $scope.$watch('monthlyUsage', function() {
+        if ($scope.selected != null) {
+            updateDifferences
+        }
+        });
 
     $scope.chartConfig = {
       //This is not a highcharts object. It just looks a little like one!
@@ -102,3 +106,9 @@ climateControllers.controller('EnergyProvidersCtrl', ['$scope', 'energyOptionsWi
 
   }
 ]);
+
+climateControllers.controller('InfoCtrl', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
+    $http.get('README.md').success(function(data) {
+        $scope.readme = $sce.trustAsHtml(marked(data));
+    });
+}]);
