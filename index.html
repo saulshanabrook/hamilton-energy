@@ -9,19 +9,26 @@
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.js"></script>
 
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="http://cdn.rawgit.com/t4t5/sweetalert/master/lib/sweet-alert.css">
+  <link rel="stylesheet" href="//cdn.rawgit.com/t4t5/sweetalert/master/lib/sweet-alert.css">
+  <link rel="stylesheet" href="//cdn.rawgit.com/angular/bower-material/master/angular-material.css">
 </head>
 
 <body>
+  <md-content>
   <div ng-controller="EnergyProvidersCtrl">
-    <p>
+  <md-card>
+
       You live in Hamilton, NY and use <input type="number" min="0" ng-model="monthlyUsage" ng-required=true ng-change="updateDifferences()"> kWh of electricity per month.
       Realizing that you can change your electricity provider from the incumbent utility to many different third party options,
         you decide to compare them based on their price and greenhouse gas emissions...
-    </p>
-    <p><i>Click on any provider to compare it.</i></p>
+  </md-card>
+
+  <md-card>
+    <i>Click on any provider to compare it.</i>
     <highchart id="chart1" config="chartConfig" ng-click="updateSelectedProvider()"></highchart>
-    <div ng-if="selected">
+      </md-card>
+
+    <md-card ng-if="selected">
       <p>
         You think about switching to <strong>{{ selected.provider }}</strong>.
         It will cost you <strong>{{ selected.price * monthlyUsage | currency }}</strong> a month, with a <strong>{{ selected.pricingScheme | lowercase }}</strong> pricing scheme.
@@ -34,23 +41,26 @@
         </span>
         This means they produce <strong>{{ selected.emmissions | number : 0 }} GtCO<sub>2</sub>eq per kwH</strong>
         <span ng-if="selected.green">
-          and are marked as a "Green" provider
+          and are marked as a <strong>"Green"</strong> provider
         </span>.
         <span ng-if="selected.minTerm">
           They have a minimum service term of <strong>{{selected.minTerm}}</strong><span ng-if="selected.cancellationFee > 0">, with a cancellation fee of <strong>{{selected.cancellationFee | currency }}</strong></span>.
         </span>
       </p>
       <p>
-        If you switched, and kept them until 2030 you would {{ (priceDifference < 0) ? "lose" : "save" }} {{ priceDifference | abs | currency }}.
-        Based on the difference in carbon outputs, you would cause {{ lifeDifference | abs | number : 5 }} more people to  {{ (lifeDifference > 0) ? "live" : "die" }} between 2030 and 2050, than if you stayed with the default.
+        If you switched, and kept them until 2030 you would <strong>{{ (priceDifference < 0) ? "lose" : "save" }} {{ priceDifference | abs | currency }}</strong>.
+        Based on the difference in carbon outputs, you would cause <strong>{{ lifeDifference | abs | number : 5 }} more people to  {{ (lifeDifference > 0) ? "live" : "die" }}</strong> between 2030 and 2050, than if you stayed with the default.
         <span ng-if="priceDifference < 0 && lifeDifference > 0">
-          This means you would be paying be paying {{ (priceDifference / lifeDifference) | abs | currency }} per life saved.
+          This means you would be paying be paying <strong>{{ (priceDifference / lifeDifference) | abs | currency }} per life saved</strong>.
         </span>
-    </div>
+        </p>
+        <md-button ng-href="{{'http://newyorkpowertochoose.com/' + selected.url}}" target="_blank">Make The Switch</md-button>
+    </md-card>
   </div>
-  <div ng-controller="InfoCtrl">
+  <md-card ng-controller="InfoCtrl">
     <div ng-bind-html="readme"></div>
-  </div>
+  </md-card>
+  </md-content>
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
   <script src="//epeli.github.io/underscore.string/dist/underscore.string.min.js"></script>
@@ -67,6 +77,12 @@
   <script src="//cdn.rawgit.com/gentooboontoo/js-quantities/master/src/quantities.js"></script>
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.js"></script>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/hammer.js/1.1.3/hammer.min.js"></script>
+  <script src="//cdn.rawgit.com/angular/bower-angular-aria/master/angular-aria.js"></script>
+  <script src="//cdn.rawgit.com/angular/bower-angular-animate/master/angular-animate.js"></script>
+  <script src="//cdn.rawgit.com/angular/bower-material/master/angular-material.js"></script>
+
 
   <script src="utils.js"></script>
   <script src="main.js"></script>

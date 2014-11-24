@@ -1,5 +1,6 @@
 var climateApp = angular.module('climateApp', [
-  'climateControllers'
+  'climateControllers',
+  'ngMaterial'
 ]);
 
 climateApp.run(function() {

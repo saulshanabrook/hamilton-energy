@@ -1,5 +1,4 @@
 # Hamilton Energy
-
 I set about to calculate the tradeoff between cost and human lives, based on what energy provider you choose. Currently it is only relevant for those who live in Hamilton, NY (or more specifically, within the zip code 13346).
 
 ## Calculation Process
