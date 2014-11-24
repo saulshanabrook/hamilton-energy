@@ -1,6 +1,21 @@
 # Hamilton Energy
 I set about to calculate the tradeoff between cost and human lives, based on what energy provider you choose. Currently it is only relevant for those who live in Hamilton, NY (or more specifically, within the zip code 13346).
 
+## Motivation
+I am interested in what sort of obligations individuals have to protect the climate. For a well thought out approach to approaching this problem, check out the "Climate Change" chapter in Peter Singer's *Practical Ethics*. I was still left with a bunch of unaswered/asked question, even after reading his approach.
+
+If we accept Singer's logic that we are each personally responsible for the effects of global warming, because our behavior causes more greenhouse gasses to be released into the atmosphere which in turn furthers climate change, which will resault in mass dislocation and death for many communities in the future.
+
+But is it helpful at all to recognize this fact, if we (I) am not willing to give up creating this pollution from my behavior. I continue to use my car for my own well being, regardless of the possible hurt my actions will cause others in the future.
+
+This project is trying to poke at the question of whether it is possible to respond to the morality of climate change indivually, with the help of a quantitiave moral framework.
+
+The reason I think we need a quantative framework, is because if I knew that every time I drove to the store 10 people would die from global warming, I would act differently then if I knew 0.0000000001 people will die.
+
+If I intend to include the costs of global warming into my moral decision making calculus I need to understand what those costs are.
+
+This is very likely an impossible/illogical problem to try to solve, because of the unpredactability of the resualts of your indivual actions, but I still think the resualting quantative data does give us a new lense to look at how to make indivual climate sensative choices.
+
 ## Calculation Process
 First I calculated the energy mix of each utility. I used the mix on their website[1] and filled in with the average energy mix[2] for any missing data. Then using that mix, I figured out the average emmissions for each utility, using the emmisions / kWh data[3].
 
