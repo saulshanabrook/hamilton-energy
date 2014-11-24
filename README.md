@@ -19,15 +19,17 @@ Then we can say “If you don’t choose the more expensive rate, you value live
 	- [x] Set `renewable` sources to the NY average of the [qualifying technologies](http://en.wikipedia.org/wiki/Renewable_Energy_Certificate_(United_States)#Qualifying_technologies).
 - [x] Input energy carbon costs from [the most recent IPCC report (page 10)](http://report.mitigation2014.org/drafts/final-draft-postplenary/ipcc_wg3_ar5_final-draft_postplenary_annex-iii.pdf). ![report image](https://www.dropbox.com/s/ft6g286iclqepwu/Screenshot%202014-11-19%2023.13.36.png?dl=1)
 	- [x] calculate average carbon costs for each provider
-- [ ] Plot cost vs. carbon costs of each provider
-	- [ ] have hover over each dot reveal all details of provider
-	- [ ] also show the “You can pay x more per month to reduce your carbon footprint by y” underneath
+- [x] Plot cost vs. carbon costs of each provider
+	- [x] have hover over each dot reveal its name
+		- [x] Add average energy use data. (from [Table CE2.2] (http://www.eia.gov/consumption/residential/data/2009/c&e/fuel-totals/xls/CE2.2%20Northeast%20Site%20Fuel%20Consumption.xlsx) of the [2009 eic RECS data](http://www.eia.gov/consumption/residential/data/2009/index.cfm?view=consumption#fuel-consumption). Used the "Average Site Energy Consumption" of electricity for New York State).
+	- [x] Show details of selected provider below
+	- [x] also show the “You can pay x more per month to reduce your carbon footprint by y” underneath
 - [x] Figure out how many lives are saved for each ton of carbon not released
 	- 250k more people will die each year, between 2030 and 2050, if we continue to track SRES A1b vs “baseline climate”. (from a [WHO report](http://apps.who.int/iris/bitstream/10665/134014/1/9789241507691_eng.pdf?ua=1)).
 	- This means 2.5 mil deaths from 2030-2050.
 	- number of added deaths per year in 2030-2040 is linearly related to the total carbon dioxide emissions from 1990 to 2030, which is 500Gt (from a [older IPCC report, page 9](https://www.ipcc.ch/pdf/special-reports/spm/sres-en.pdf))
 	- calculate the number of people saved by taking whatever fraction of the total emissions you don’t create and multiplying that by 2.5 million.
-- [ ] Show people how much they are valuing those lives, based on which choice they are hovering over.
+- [x] Show people how much they are valuing those lives, based on which choice they are hovering over.
 
 http://jsfiddle.net/gh/get/jquery/1.7.2/highslide-software/highcharts.com/tree/master/samples/highcharts/plotoptions/series-point-events-mouseover/
 

@@ -64,7 +64,7 @@ climateServices.factory('energyOptions', ['energyHTTP',
           provider: provider,
           url: moreInfoLink.attr('href'),
           pricingScheme: pricingScheme,
-          price: parseFloat(_.clean(_(_(moreInfoLink.text()).strRight(pricingScheme)).strLeft("kwh"))),
+          price: parseFloat(_.clean(_(_(moreInfoLink.text()).strRight(pricingScheme)).strLeft("kwh"))) / 100,
           green: greenSpot.has('img').length !== 0,
           minTerm: _.clean(elem.find('td:nth-child(5)').text()),
           cancellationFee: _.clean(elem.find('td:nth-child(6)').text()),
@@ -79,7 +79,7 @@ climateServices.factory('energyOptions', ['energyHTTP',
             break;
           case "tableRow1":
             processRow($(this));
-          break;
+            break;
           case "tableRow0":
             processRow($(this));
             break;
@@ -95,7 +95,8 @@ climateServices.factory('energyOptions', ['energyHTTP',
 climateServices.factory('energyMixRenewable', ['energyMixNY',
   function(energyMixNY) {
     return normalizeValues(_.pick(energyMixNY, 'solar', 'hydro', 'wind', 'solar', 'biomass'));
-}]);
+  }
+]);
 
 climateServices.service('energyOptionsWithComposition', ['energyComposition', 'energyOptions', 'energyMixNY', 'energyMixRenewable', 'emmissions',
   function energyOptionsWithCompositionService(energyComposition, energyOptions, energyMixNY, energyMixRenewable, emmissions) {
@@ -146,7 +147,7 @@ climateServices.service('energyOptionsWithComposition', ['energyComposition', 'e
     this.addEmmissions = _.bind(function(option) {
       option.emmissions = 0;
       for (var source in option.normalizedMix) {
-         option.emmissions += this.emmissions[source] * option.normalizedMix[source];
+        option.emmissions += this.emmissions[source] * option.normalizedMix[source];
       }
 
     }, this);
@@ -160,3 +161,17 @@ climateServices.service('energyOptionsWithComposition', ['energyComposition', 'e
     }, this));
   }
 ]);
+
+climateServices.factory('getDeathDifference', [function() {
+  var deathsPerYear = 250 * 1000;
+  var numberYears = 2050 - 2030;
+  var deathsFromWarming = numberYears * deathsPerYear;
+
+  var giga = Math.pow(10, 9);
+  var totalCTons = 500 * giga;
+
+  var deathsPerCTon = deathsFromWarming / totalCTons;
+  return function(cTonsDifference) {
+    return deathsPerCTon * cTonsDifference;
+  };
+}]);

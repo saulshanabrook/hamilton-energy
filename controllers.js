@@ -1,25 +1,57 @@
-var climateControllers = angular.module('climateControllers', ['climateServices', 'datatables', "highcharts-ng"]);
+var climateControllers = angular.module('climateControllers', ['climateServices', "highcharts-ng", 'angular-underscore/filters', 'climateFilters']);
 
-climateControllers.controller('EnergyProvidersCtrl', ['$scope', 'energyOptionsWithComposition', 'DTOptionsBuilder', 'DTColumnBuilder', 'optionKeys',
-  function($scope, energyOptionsWithComposition, DTOptionsBuilder, DTColumnBuilder, optionKeys) {
-    $scope.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
-      return energyOptionsWithComposition.getOptions;
-    }).withPaginationType('full_numbers');
-
-    $scope.dtColumns = _.map(optionKeys, function(value, key) {
-      return DTColumnBuilder.newColumn(key).withTitle(value);
-    });
+climateControllers.controller('EnergyProvidersCtrl', ['$scope', 'energyOptionsWithComposition', 'optionKeys', 'getDeathDifference', '$filter',
+  function($scope, energyOptionsWithComposition, optionKeys, getDeathDifference, $filter) {
 
     energyOptionsWithComposition.getOptions.then(function(options) {
       _.each(options, function(option) {
-        option.x = option.emmissions;
-        option.y = option.price;
-      });
-      $scope.chartConfig.series.push({
-        data: options
+        if (_.str.include(option.provider, "incumbent")) {
+          $scope.incumbent = option;
+        }
+
+        var seriesDefault = {
+          name: option.pricingScheme + " Pricing",
+          visible: option.pricingScheme == "Fixed"
+        };
+        var series = findWhereOrAdd($scope.chartConfig.series, seriesDefault);
+        var data = _.defaults(series, {
+          data: []
+        }).data;
+
+        var point = {
+          x: option.emmissions,
+          y: option.price,
+          option: option
+        };
+        data.push(point);
       });
 
     });
+
+    function calculateTotalKWhTill2030() {
+      var monthsTill2030 = moment('2030-01-01').diff(moment(), 'months', true);
+      return $scope.monthlyUsage * monthsTill2030;
+    }
+
+    function caculateLifeDifference() {
+      var emmissionsDifferenceInG = $scope.selected.emmissions - $scope.incumbent.emmissions;
+      var emmissionsDifferenceInT = Qty.swiftConverter('g', 'tonne')(emmissionsDifferenceInG);
+      var cTonsDifference = emmissionsDifferenceInT * calculateTotalKWhTill2030();
+      return -getDeathDifference(cTonsDifference);
+    }
+
+    function caculatePriceDifference() {
+      var priceDifference = $scope.incumbent.price - $scope.selected.price;
+      return priceDifference * calculateTotalKWhTill2030();
+    }
+
+    function updateDifferences() {
+      $scope.priceDifference = caculatePriceDifference();
+      $scope.lifeDifference = caculateLifeDifference();
+    }
+
+    $scope.monthlyUsage = Math.round(8294 / 12, 0);
+    $scope.$watch('monthlyUsage', updateDifferences);
 
     $scope.chartConfig = {
       //This is not a highcharts object. It just looks a little like one!
@@ -28,23 +60,12 @@ climateControllers.controller('EnergyProvidersCtrl', ['$scope', 'energyOptionsWi
           type: 'scatter'
         },
         legend: {
-          enabled: false
+          enabled: true
         },
         tooltip: {
-          enabled: false,
-          useHTML: true,
-          formatter: function() {
-            var t = '<table>';
-            for (var value in optionKeys) {
-              t += '<tr>';
-              t += '<td>' + optionKeys[value] + '</td>';
-              t += '<td style="text-align: right">' + this.point[value] + '</td>';
-              t += '</tr>';
-            }
+          enabled: true,
+          pointFormat: '{point.option.provider}'
 
-            t += '</table>';
-            return t;
-          }
         },
         xAxis: {
           title: {
@@ -61,28 +82,23 @@ climateControllers.controller('EnergyProvidersCtrl', ['$scope', 'energyOptionsWi
         },
         plotOptions: {
           scatter: {
-            allowPointSelect: true
+            allowPointSelect: true,
+            point: {
+              events: {
+                click: function(event) {
+                  $scope.selected = event.currentTarget.option;
+                  updateDifferences();
+                  $scope.$apply();
+                }
+              }
+            }
           }
         }
       },
       series: []
     };
 
-  }
-]);
 
-climateControllers.controller('DeathCtrl', ['$scope',
-  function($scope) {
-    var deathsPerYear = 250 * 1000;
-    var numberYears = 2050 - 2030;
-    var deathsFromWarming = numberYears * deathsPerYear;
 
-    var giga = Math.pow(10, 9);
-    var totalCTons = 500 * giga;
-
-    var deathsPerCTon = deathsFromWarming / totalCTons;
-    $scope.lessDeathsFromCTonSaved = function() {
-      return deathsPerCTon * $scope.cTonsSaved;
-    };
   }
 ]);

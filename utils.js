@@ -24,3 +24,32 @@ function normalizeValues(obj) {
   });
   return obj;
 }
+
+function findWhereOrAdd(list, properties) {
+  return _.findWhere(list, properties) || list[list.push(properties) - 1];
+}
+
+function prettyJoinList(list) {
+  var output = "";
+
+  for (var index = 0; index < list.length; index++) {
+    var last = index == list.length - 1;
+    var secondToLast = index == list.length - 2;
+
+    output += list[index];
+
+    if (list.length > 2 && !last && !secondToLast) {
+      output += ',';
+    }
+
+    if (list.length > 1) {
+      output += ' ';
+    }
+
+    if (list.length > 1 && secondToLast) {
+      output += 'and ';
+    }
+
+  }
+  return output;
+}
